@@ -23,7 +23,8 @@ const
   EXECUTION_TIMEOUT = 1000 * 60 * 10; // 10 minutes
 
 dotenv.load({
-  path: path.join(__dirname, '.env')
+  path: path.join(__dirname, '.env'),
+  silent: true
 });
 
 _.defaults(env, {

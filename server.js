@@ -22,7 +22,8 @@ const
   env               = process.env;
 
 dotenv.load({
-  path: path.join(__dirname, '.env')
+  path: path.join(__dirname, '.env'),
+  silent: true
 });
 
 _.defaults(env, {
