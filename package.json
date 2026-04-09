@@ -4,7 +4,9 @@
   "description": "RSS Feed Reader for Telegram using Telegram Bot API.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "sync": "node sync.js",
+    "test": "node --check server.js && node --check sync.js && node --check notify.js && node --check ad.js"
   },
   "repository": {
     "type": "git",

@@ -32,6 +32,21 @@ $ vi .env # You must edit configurations!
 $ node server.js
 ```
 
+### Running with Docker
+```bash
+$ docker build -t telegrambot-readerman .
+$ docker run --rm \
+    -p 9000:9000 \
+    --env-file .env \
+    telegrambot-readerman
+```
+
+기본 컨테이너 명령은 `server.js`입니다. 동기화 작업을 실행하려면 명령만 바꾸면 됩니다:
+
+```bash
+$ docker run --rm --env-file .env telegrambot-readerman npm run sync
+```
+
 ### Registering feed sync worker
 주기적인 피드 싱크를 위해 Cron에 아래 명령어를 Job으로 등록하기만 하면 됩니다.
 
@@ -48,6 +63,18 @@ $ crontab -e
 ```
 
 `flock`을 사용해서 sync job은 오직 하나만 실행할 수 있게 설정하는 것을 권장합니다.
+
+## GitHub Actions
+
+리포지토리에는 `.github/workflows/docker.yml` 워크플로우가 포함되어 있습니다.
+
+이 워크플로우는 다음 이벤트에서 실행됩니다:
+
+* `push`
+* `pull_request`
+* `workflow_dispatch`
+
+워크플로우는 `npm ci`, 문법 검사, Docker 이미지 빌드를 수행합니다.
 
 
 ## Known Issues
