@@ -80,7 +80,8 @@ const db      = mongoose.connect(process.env.MONGO_URL, { options: { db: { safe:
   const
     bot = new TelegramBot(env.TELEGRAM_BOT_TOKEN, {
       webHook: false,
-      polling: false
+      polling: false,
+      baseApiUrl: env.TELEGRAM_API_URL || 'https://api.telegram.org'
     });
 
   log('Created bot. Getting Users...');

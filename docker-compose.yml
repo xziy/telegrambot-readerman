@@ -1,0 +1,30 @@
+services:
+  bot:
+    image: ghcr.io/xziy/telegrambot-readerman:master
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      TELEGRAM_WEBHOOK_URL: ${TELEGRAM_WEBHOOK_URL}
+      MONGO_URL: mongodb://mongo:27017/readerman
+      # Uncomment to use a Telegram API mirror:
+      # TELEGRAM_API_URL: https://your-telegram-mirror.example.com
+    ports:
+      - "9000:9000"
+    depends_on:
+      mongo:
+        condition: service_healthy
+
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mongo_data:

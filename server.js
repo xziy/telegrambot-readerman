@@ -50,7 +50,8 @@ const db      = mongoose.connect(process.env.MONGO_URL, { options: { db: { safe:
       webHook: env.NODE_ENV === 'production' ? {
         port: env.PORT
       } : false,
-      polling: env.NODE_ENV === 'development'
+      polling: env.NODE_ENV === 'development',
+      baseApiUrl: env.TELEGRAM_API_URL || 'https://api.telegram.org'
     });
 
   if (env.NODE_ENV === 'production') {
